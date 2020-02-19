@@ -21,10 +21,10 @@ public class Principal {
         c2.setCelular("88888");
         contactoData.create(c2);
 
-        contactoData.list();
-        //for(Contacto d:contactoData.list() ){
-        //    System.out.println(d.getId() + "\t"+d.getNombre()); 
-        //}
+        System.out.println("Lista de contactos");
+        for(Contacto d:contactoData.list() ){
+            System.out.println(d.getId() + "\t"+d.getNombre()); 
+        }
         
     }
 }
