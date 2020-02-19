@@ -1,6 +1,8 @@
 // Un simple programa Swing
 
 // Los programas Swing deben importar java.swing.
+import java.util.List;
+
 import javax.swing.*;
 
 import data.Contacto;
@@ -35,19 +37,25 @@ public class Principal2 {
         c2.setCelular("88888");
         contactoData.create(c2);
 
-        Object[][] rowData = { { 1, 2 }, { 3, 4 } };
+        //Object[][] rowData = { { 1, 2 }, { 3, 4 } };
         
-        for(Contacto d:contactoData.list() ){
-            System.out.println(d.getNombre()); 
+        List<Contacto> miLista=contactoData.list();
+
+        String matrizInfo[][]=new String[miLista.size()][2];
+         
+        for (int i = 0; i < miLista.size(); i++) {
+         matrizInfo[i][0]=miLista.get(i).getId()+"";
+         matrizInfo[i][1]=miLista.get(i).getNombre()+"";
         }
 
         String[] columnNames = { "col1", "col2" };
-        JTable jTable = new JTable(rowData, columnNames);
+        JTable jTable = new JTable(matrizInfo, columnNames);
         jfrm.add(jTable);
 
         // Visualiza el marco.
         jfrm.setVisible(true);
     }
+    
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
