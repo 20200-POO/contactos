@@ -16,6 +16,9 @@ public class ContactoData {
         listaContactos.add(d);
         //System.out.println(d.getNombre()+" is created!");
     }
+    public void delete(Contacto d) {
+        listaContactos.remove(d);
+    }
     
 
 }
