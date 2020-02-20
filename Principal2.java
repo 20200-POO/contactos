@@ -3,12 +3,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Principal2 {
-    public static void main(String args[]) {
-        // Creando el Marco
-        JFrame frame = new JFrame("Chat Frame");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 400);
+public class Principal2 extends JFrame {
+    public Principal2(){
+        //JFrame frame = new JFrame("Chat Frame");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 400);
 
         // Creando MenuBar y agregando items
         JMenuBar mb = new JMenuBar();
@@ -18,15 +17,41 @@ public class Principal2 {
         mb.add(m2);
 
         JMenuItem m11 = new JMenuItem("Contactos");
-        JMenuItem m12 = new JMenuItem("Salir");
+        JMenuItem m12 = new JMenuItem("Productos");
+        JMenuItem m19 = new JMenuItem("Salir");
 
+        JPanel panelContacto = new JPanel(); 
+        JPanel panelProducto = new JPanel(); 
+
+        JLabel lblNombre = new JLabel("Ingrese Nombre:");
+        JTextField txtNombre = new JTextField();
+        panelContacto.add(lblNombre);
+        panelContacto.add(txtNombre);
         m11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-                System.out.println("Ir a contactos");;
+                System.out.println("Ir a contactos");
+                remove(panelProducto);
+                add(BorderLayout.CENTER, panelContacto);
+                revalidate();
+                repaint();
           }
         });
 
-        m12.addActionListener(new ActionListener() {
+        JLabel lblPNombre = new JLabel("Ingrese Producto:");
+        panelProducto.add(lblPNombre);
+        m11.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent event) {
+                System.out.println("Ir a productos");
+            
+                remove(panelContacto);
+                add(BorderLayout.CENTER, panelProducto);
+                revalidate();
+                repaint();
+          }
+        });
+
+
+        m19.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
           }
@@ -34,6 +59,7 @@ public class Principal2 {
 
         m1.add(m11);
         m1.add(m12);
+        m1.add(m19);
 
         // Creando el panel en la parte inferior y agregando componentes
         JPanel panel = new JPanel(); 
@@ -42,8 +68,13 @@ public class Principal2 {
 
 
         // Agregar componentes al marco.
-        frame.add(BorderLayout.NORTH, mb);
-        frame.add(BorderLayout.SOUTH, panel);
-        frame.setVisible(true);
+        add(BorderLayout.NORTH, mb);
+        add(BorderLayout.SOUTH, panel);
+    }
+    public static void main(String args[]) {
+        // Creando el Marco
+        Principal2 ex = new Principal2();
+        ex.setVisible(true);
+        
     }
 }
