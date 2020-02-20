@@ -21,29 +21,32 @@ public class Principal2 extends JFrame {
         JMenuItem m19 = new JMenuItem("Salir");
 
         JPanel panelContacto = new JPanel(); 
-        JPanel panelProducto = new JPanel(); 
-
-        JLabel lblNombre = new JLabel("Ingrese Nombre:");
+        JLabel lblNombre = new JLabel("Ingrese Contacto:");
         JTextField txtNombre = new JTextField();
         panelContacto.add(lblNombre);
         panelContacto.add(txtNombre);
+
+        JPanel panelProducto = new JPanel(); 
+        JLabel lblPNombre = new JLabel("Ingrese Producto:");
+        panelProducto.add(lblPNombre);
+
         m11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a contactos");
-                remove(panelProducto);
+                //remove(panelProducto);
+                revalidate();
+                repaint();
                 add(BorderLayout.CENTER, panelContacto);
                 revalidate();
                 repaint();
           }
         });
-
-        JLabel lblPNombre = new JLabel("Ingrese Producto:");
-        panelProducto.add(lblPNombre);
-        m11.addActionListener(new ActionListener() {
+        m12.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a productos");
-            
-                remove(panelContacto);
+               // remove(panelContacto);
+               revalidate();
+                repaint();
                 add(BorderLayout.CENTER, panelProducto);
                 revalidate();
                 repaint();
@@ -77,4 +80,5 @@ public class Principal2 extends JFrame {
         ex.setVisible(true);
         
     }
+    
 }
