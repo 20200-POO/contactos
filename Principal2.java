@@ -1,67 +1,34 @@
-// Un simple programa Swing
-
-// Los programas Swing deben importar java.swing.
-import java.util.List;
-
+import java.awt.*;
 import javax.swing.*;
 
-import data.Contacto;
-import data.ContactoData;
-
 public class Principal2 {
+    public static void main(String args[]) {
+        // Creando el Marco
+        JFrame frame = new JFrame("Chat Frame");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 400);
 
-    Principal2() {
+        // Creando MenuBar y agregando items
+        JMenuBar mb = new JMenuBar();
+        JMenu m1 = new JMenu("CRUD");
+        JMenu m2 = new JMenu("AYUDA");
+        mb.add(m1);
+        mb.add(m2);
+
+        JMenuItem m11 = new JMenuItem("Contactos");
+        JMenuItem m12 = new JMenuItem("Salir");
+        m1.add(m11);
+        m1.add(m12);
+
+        // Creando el panel en la parte inferior y agregando componentes
+        JPanel panel = new JPanel(); 
+        JLabel label = new JLabel("2020 POO");
+        panel.add(label);
+
         
-        // Crea un nuevo contenedor JFrame.
-        JFrame jfrm = new JFrame("Una simple aplicación Swing");
-        // Se le da al cuadro un tamaño inicial.
-        jfrm.setSize(600, 800);
-        // Termine el programa cuando el usuario cierre la aplicación.
-        jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        // Crea una etiqueta basada en texto.
-        JLabel jLabel = new JLabel("Programación GUI con Swing.");
-        // Agregue la etiqueta al panel de contenido (content pane).
-        // jfrm.add(jLabel);
-        ContactoData contactoData= new ContactoData();
-        
-        Contacto c = new Contacto();
-        c.setId(1);
-        c.setNombre("Juan Perez");
-        c.setCelular("99999");
-        contactoData.create(c);
-
-        Contacto c2 = new Contacto();
-        c2.setId(2);
-        c2.setNombre("Maria");
-        c2.setCelular("88888");
-        contactoData.create(c2);
-
-        //Object[][] rowData = { { 1, 2 }, { 3, 4 } };
-        
-        List<Contacto> miLista=contactoData.list();
-
-        String matrizInfo[][]=new String[miLista.size()][2];
-         
-        for (int i = 0; i < miLista.size(); i++) {
-         matrizInfo[i][0]=miLista.get(i).getId()+"";
-         matrizInfo[i][1]=miLista.get(i).getNombre()+"";
-        }
-
-        String[] columnNames = { "col1", "col2" };
-        JTable jTable = new JTable(matrizInfo, columnNames);
-        jfrm.add(jTable);
-
-        // Visualiza el marco.
-        jfrm.setVisible(true);
-    }
-    
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new Principal2();
-            }
-        });
+        // Agregar componentes al marco.
+        frame.add(BorderLayout.NORTH, mb);
+        frame.add(BorderLayout.SOUTH, panel);
+        frame.setVisible(true);
     }
 }
