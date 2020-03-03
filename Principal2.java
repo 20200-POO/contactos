@@ -10,10 +10,20 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Principal2 extends JFrame {
+    int id = 2;
+    /////
+
+    ContactoData contactoData = new ContactoData();
+
+    ///
+    List<Contacto> miLista;
+    String[][] matrizInfo;
+    String[] columnNames = { "Id", "Nombre" };
+    JTable jTableContactos = new JTable(matrizInfo, columnNames);
+    JScrollPane spContactos;
+    /////
 
     public Principal2() {
-        /////
-        ContactoData contactoData = new ContactoData();
         Contacto c = new Contacto();
         c.setId(1);
         c.setNombre("Juan Perez");
@@ -25,20 +35,15 @@ public class Principal2 extends JFrame {
         c2.setNombre("Maria");
         c2.setCelular("88888");
         contactoData.create(c2);
-        ///
-        List<Contacto> miLista = contactoData.list();
 
-        String[][] matrizInfo = new String[miLista.size()][2];
-
+        miLista = contactoData.list();
+        matrizInfo = new String[miLista.size()][2];
         for (int i = 0; i < miLista.size(); i++) {
             matrizInfo[i][0] = miLista.get(i).getId() + "";
             matrizInfo[i][1] = miLista.get(i).getNombre() + "";
         }
-
-        String[] columnNames = { "Id", "Nombre" };
-        JTable jTableContactos = new JTable(matrizInfo, columnNames);
-        JScrollPane spContactos = new JScrollPane(jTableContactos);
-        /////
+        jTableContactos = new JTable(matrizInfo, columnNames);
+        spContactos = new JScrollPane(jTableContactos);
 
         // JFrame frame = new JFrame("Chat Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -59,8 +64,36 @@ public class Principal2 extends JFrame {
         panelContacto.setLayout(new BoxLayout(panelContacto, BoxLayout.Y_AXIS));
         JLabel lblNombre = new JLabel("Ingrese Contacto:");
         JTextField txtNombre = new JTextField();
+        JButton b = new JButton("Add");
+        // b.setBounds(50,100,95,30);
+        b.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // txtNombre.setText("Welcome to Javatpoint.");
+                System.out.println("txtNombre=" + txtNombre.getText());
+                id++;
+                Contacto d = new Contacto();
+                d.setId(id);
+                d.setNombre(txtNombre.getText());
+                contactoData.create(d);
+
+                miLista = contactoData.list();
+                System.out.println(miLista);
+                matrizInfo = new String[miLista.size()][2];
+                for (int i = 0; i < miLista.size(); i++) {
+                    matrizInfo[i][0] = miLista.get(i).getId() + "";
+                    matrizInfo[i][1] = miLista.get(i).getNombre() + "";
+                }
+                jTableContactos = new JTable(matrizInfo, columnNames);
+                spContactos = new JScrollPane(jTableContactos);
+                jTableContactos.repaint();
+                panelContacto.repaint();
+
+            }
+        });
+
         panelContacto.add(lblNombre);
         panelContacto.add(txtNombre);
+        panelContacto.add(b);
         panelContacto.add(spContactos);
 
         JPanel panelProducto = new JPanel();
@@ -71,6 +104,7 @@ public class Principal2 extends JFrame {
         m11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a contactos");
+                panelContacto.repaint();
                 JOptionPane.showMessageDialog(null, panelContacto, "Contactos", JOptionPane.PLAIN_MESSAGE);
             }
         });
