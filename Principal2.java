@@ -1,6 +1,5 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 
 import data.Contacto;
 import data.ContactoData;
@@ -10,45 +9,17 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 public class Principal2 extends JFrame {
-    int id = 2;
-    /////
-
+    int id = 0;
     ContactoData contactoData = new ContactoData();
-
-    ///
     List<Contacto> miLista;
-    String[][] matrizInfo;
+    String[][] matrizInfo = new String[0][2];;
     String[] columnNames = { "Id", "Nombre" };
-    JTable jTableContactos = new JTable(matrizInfo, columnNames);
+    JTable jTableContactos ;
     JScrollPane spContactos;
-    /////
 
     public Principal2() {
-        Contacto c = new Contacto();
-        c.setId(1);
-        c.setNombre("Juan Perez");
-        c.setCelular("99999");
-        contactoData.create(c);
-
-        Contacto c2 = new Contacto();
-        c2.setId(2);
-        c2.setNombre("Maria");
-        c2.setCelular("88888");
-        contactoData.create(c2);
-
-        miLista = contactoData.list();
-        matrizInfo = new String[miLista.size()][2];
-        for (int i = 0; i < miLista.size(); i++) {
-            matrizInfo[i][0] = miLista.get(i).getId() + "";
-            matrizInfo[i][1] = miLista.get(i).getNombre() + "";
-        }
-        jTableContactos = new JTable(matrizInfo, columnNames);
-        spContactos = new JScrollPane(jTableContactos);
-
-        // JFrame frame = new JFrame("Chat Frame");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
-
         // Creando MenuBar y agregando items
         JMenuBar mb = new JMenuBar();
         JMenu m1 = new JMenu("CRUD");
@@ -60,12 +31,14 @@ public class Principal2 extends JFrame {
         JMenuItem m12 = new JMenuItem("Productos");
         JMenuItem m19 = new JMenuItem("Salir");
 
+
+
+
         JPanel panelContacto = new JPanel();
         panelContacto.setLayout(new BoxLayout(panelContacto, BoxLayout.Y_AXIS));
         JLabel lblNombre = new JLabel("Ingrese Contacto:");
         JTextField txtNombre = new JTextField();
         JButton b = new JButton("Add");
-        // b.setBounds(50,100,95,30);
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // txtNombre.setText("Welcome to Javatpoint.");
@@ -84,27 +57,38 @@ public class Principal2 extends JFrame {
                     matrizInfo[i][1] = miLista.get(i).getNombre() + "";
                 }
                 jTableContactos = new JTable(matrizInfo, columnNames);
-                spContactos = new JScrollPane(jTableContactos);
-                jTableContactos.repaint();
-                panelContacto.repaint();
+                spContactos.setViewportView(jTableContactos);
 
             }
         });
+        jTableContactos = new JTable(matrizInfo, columnNames);
+        spContactos = new JScrollPane();
+        spContactos.setViewportView(jTableContactos);
 
         panelContacto.add(lblNombre);
         panelContacto.add(txtNombre);
         panelContacto.add(b);
         panelContacto.add(spContactos);
 
+
+
+
+
+
+
         JPanel panelProducto = new JPanel();
         panelProducto.setLayout(new BoxLayout(panelProducto, BoxLayout.Y_AXIS));
         JLabel lblPNombre = new JLabel("Ingrese Producto:");
+
+
         panelProducto.add(lblPNombre);
 
+
+
+        ///actions
         m11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a contactos");
-                panelContacto.repaint();
                 JOptionPane.showMessageDialog(null, panelContacto, "Contactos", JOptionPane.PLAIN_MESSAGE);
             }
         });
