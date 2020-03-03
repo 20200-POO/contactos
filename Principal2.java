@@ -21,35 +21,27 @@ public class Principal2 extends JFrame {
         JMenuItem m19 = new JMenuItem("Salir");
 
         JPanel panelContacto = new JPanel(); 
+        panelContacto.setLayout(new BoxLayout(panelContacto, BoxLayout.Y_AXIS));
         JLabel lblNombre = new JLabel("Ingrese Contacto:");
         JTextField txtNombre = new JTextField();
         panelContacto.add(lblNombre);
         panelContacto.add(txtNombre);
 
         JPanel panelProducto = new JPanel(); 
+        panelProducto.setLayout(new BoxLayout(panelProducto, BoxLayout.Y_AXIS));
         JLabel lblPNombre = new JLabel("Ingrese Producto:");
         panelProducto.add(lblPNombre);
 
         m11.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a contactos");
-                //remove(panelProducto);
-                revalidate();
-                repaint();
-                add(BorderLayout.CENTER, panelContacto);
-                revalidate();
-                repaint();
+                JOptionPane.showMessageDialog(null, panelContacto, "Contactos", JOptionPane.PLAIN_MESSAGE);
           }
         });
         m12.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
                 System.out.println("Ir a productos");
-               // remove(panelContacto);
-               revalidate();
-                repaint();
-                add(BorderLayout.CENTER, panelProducto);
-                revalidate();
-                repaint();
+                JOptionPane.showMessageDialog(null, panelProducto, "Productos", JOptionPane.PLAIN_MESSAGE);
           }
         });
 
@@ -69,10 +61,10 @@ public class Principal2 extends JFrame {
         JLabel label = new JLabel("2020 POO");
         panel.add(label);
 
-
         // Agregar componentes al marco.
         add(BorderLayout.NORTH, mb);
         add(BorderLayout.SOUTH, panel);
+
     }
     public static void main(String args[]) {
         // Creando el Marco
