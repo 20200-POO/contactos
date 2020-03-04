@@ -1,5 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import java.awt.event.*;
+import javax.swing.table.*;
 
 import data.Contacto;
 import data.ContactoData;
@@ -16,8 +21,8 @@ public class Principal2 extends JFrame {
     // CRUD Contacto
     int contactoId = 0;
     ContactoData contactoData = new ContactoData();
-    String[][] contactoMatriz = new String[0][2];;
-    String[] contactoColumns = { "Id", "Nombre" };
+    String[] contactoColumns = { "Id", "Nombre", "Eliminar" };
+    String[][] contactoMatriz = new String[0][contactoColumns.length];
     JTable contactoTable = new JTable(contactoMatriz, contactoColumns);
     JScrollPane contactoSP = new JScrollPane();
     // CRUD Contacto End
@@ -46,7 +51,7 @@ public class Principal2 extends JFrame {
         contactoPanel.add(contactoTxtNombre);
         contactoPanel.add(contactoBtnAdd);
         contactoPanel.add(contactoSP);
-        
+
         contactoBtnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contactoId++;
@@ -56,12 +61,28 @@ public class Principal2 extends JFrame {
                 contactoData.create(d);
 
                 List<Contacto> miLista = contactoData.list();
-                contactoMatriz = new String[miLista.size()][2];
+                contactoMatriz = new String[miLista.size()][contactoColumns.length];
                 for (int i = 0; i < miLista.size(); i++) {
                     contactoMatriz[i][0] = miLista.get(i).getId() + "";
                     contactoMatriz[i][1] = miLista.get(i).getNombre() + "";
+                    contactoMatriz[i][2] = miLista.get(i).getId() + "";
                 }
                 contactoTable = new JTable(contactoMatriz, contactoColumns);// f5 table
+                ListSelectionModel select = contactoTable.getSelectionModel();
+                select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                
+                
+                select.addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent e) {
+                        String Data = null;
+                        int[] row = contactoTable.getSelectedRows();
+                        int[] columns = contactoTable.getSelectedColumns();
+                        //for (int i = 0; i < row.length; i++) {
+                            Data = (String) contactoTable.getValueAt(row[0], 0);
+                        //}
+                        System.out.println("Table element selected es: " + Data);
+                    }
+                });
                 contactoSP.setViewportView(contactoTable);// f5 table
 
             }
@@ -115,7 +136,6 @@ public class Principal2 extends JFrame {
         // Creando el Marco
         Principal2 ex = new Principal2();
         ex.setVisible(true);
-
     }
 
 }
