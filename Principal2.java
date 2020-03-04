@@ -41,6 +41,12 @@ public class Principal2 extends JFrame {
         JLabel contactoLblNombre = new JLabel("Ingrese Contacto:");
         JTextField contactoTxtNombre = new JTextField();
         JButton contactoBtnAdd = new JButton("Add");
+        contactoSP.setViewportView(contactoTable);
+        contactoPanel.add(contactoLblNombre);
+        contactoPanel.add(contactoTxtNombre);
+        contactoPanel.add(contactoBtnAdd);
+        contactoPanel.add(contactoSP);
+        
         contactoBtnAdd.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 contactoId++;
@@ -60,12 +66,6 @@ public class Principal2 extends JFrame {
 
             }
         });
-
-        contactoSP.setViewportView(contactoTable);
-        contactoPanel.add(contactoLblNombre);
-        contactoPanel.add(contactoTxtNombre);
-        contactoPanel.add(contactoBtnAdd);
-        contactoPanel.add(contactoSP);
         // CRUD Contacto End
 
         // CRUD Producto
