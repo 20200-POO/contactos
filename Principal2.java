@@ -70,17 +70,15 @@ public class Principal2 extends JFrame {
                 contactoTable = new JTable(contactoMatriz, contactoColumns);// f5 table
                 ListSelectionModel select = contactoTable.getSelectionModel();
                 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-                
-                
+
                 select.addListSelectionListener(new ListSelectionListener() {
                     public void valueChanged(ListSelectionEvent e) {
-                        String Data = null;
+                        int id = 0;
                         int[] row = contactoTable.getSelectedRows();
-                        int[] columns = contactoTable.getSelectedColumns();
-                        //for (int i = 0; i < row.length; i++) {
-                            Data = (String) contactoTable.getValueAt(row[0], 0);
-                        //}
-                        System.out.println("Table element selected es: " + Data);
+                        // int[] columns = contactoTable.getSelectedColumns();
+                        id = (int) contactoTable.getValueAt(row[0], 0);
+                        System.out.println("Table element selected es: " + id);
+                        // contactoData.delete(id);
                     }
                 });
                 contactoSP.setViewportView(contactoTable);// f5 table
