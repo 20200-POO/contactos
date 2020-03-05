@@ -25,9 +25,18 @@ public class ContactoData {
     public void delete(int id) {
         boolean existe= false;
         for (Contacto d : listaContactos) {
-            System.out.println(d.getId() + "\t" + d.getNombre());
+            System.out.println("Deleted:"+d.getId() + "\t" + d.getNombre());
             if (id == d.getId()) {
-                listaContactos.remove(d);
+                try {
+                    listaContactos.remove(d);
+                    //listaContactos.update();
+
+                } catch (java.util.ConcurrentModificationException e2) {
+                    
+                    System.out.println("Contacto si exist e2="+e2);
+                }
+                
+                
                 existe= true;
             }
         }

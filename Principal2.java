@@ -23,8 +23,10 @@ public class Principal2 extends JFrame {
     ContactoData contactoData = new ContactoData();
     String[] contactoColumns = { "Id", "Nombre", "Eliminar" };
     String[][] contactoMatriz = new String[0][contactoColumns.length];
-    JTable contactoTable = new JTable(contactoMatriz, contactoColumns);
+    DefaultTableModel model = new DefaultTableModel(contactoMatriz, contactoColumns);
+    JTable contactoTable = new JTable(model);
     JScrollPane contactoSP = new JScrollPane();
+
     // CRUD Contacto End
 
     public Principal2() {
@@ -46,10 +48,13 @@ public class Principal2 extends JFrame {
         JLabel contactoLblNombre = new JLabel("Ingrese Contacto:");
         JTextField contactoTxtNombre = new JTextField();
         JButton contactoBtnAdd = new JButton("Add");
+        JButton button;
+        button = new JButton("Remove");
         contactoSP.setViewportView(contactoTable);
         contactoPanel.add(contactoLblNombre);
         contactoPanel.add(contactoTxtNombre);
         contactoPanel.add(contactoBtnAdd);
+        contactoPanel.add(button);
         contactoPanel.add(contactoSP);
 
         contactoBtnAdd.addActionListener(new ActionListener() {
@@ -67,36 +72,58 @@ public class Principal2 extends JFrame {
                     contactoMatriz[i][1] = miLista.get(i).getNombre() + "";
                     contactoMatriz[i][2] = miLista.get(i).getId() + "";
                 }
-                contactoTable = new JTable(contactoMatriz, contactoColumns);// f5 table
-                ListSelectionModel select = contactoTable.getSelectionModel();
-                select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-
-                select.addListSelectionListener(new ListSelectionListener() {
-                    public void valueChanged(ListSelectionEvent e) {
-                        String ids = null;
-                        int[] row = contactoTable.getSelectedRows();
-                        ids = (String) contactoTable.getValueAt(row[0], 0);
-                        System.out.println("Table element selected es: " + ids);
-                        int id = Integer.parseInt(ids);
-                        contactoTxtNombre.setText(" " + id);
-                        contactoData.delete(id);
-                        List<Contacto> miLista = contactoData.list();
-                        System.out.println("miListaes: " + miLista);
-                        /*
-                        
-                        contactoMatriz = new String[miLista.size()][contactoColumns.length];
-                        for (int i = 0; i < miLista.size(); i++) {
-                            contactoMatriz[i][0] = miLista.get(i).getId() + "";
-                            contactoMatriz[i][1] = miLista.get(i).getNombre() + "";
-                            contactoMatriz[i][2] = miLista.get(i).getId() + "";
-                        }
-                        contactoTable = new JTable(contactoMatriz, contactoColumns);*/
-                    }
-                });
+                model = new DefaultTableModel(contactoMatriz, contactoColumns);
+                contactoTable = new JTable(model);// f5 table
+                /*
+                 * ListSelectionModel select = contactoTable.getSelectionModel();
+                 * select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                 * 
+                 * select.addListSelectionListener(new ListSelectionListener() { public void
+                 * valueChanged(ListSelectionEvent e) { String ids = null; int[] row =
+                 * contactoTable.getSelectedRows(); ids = (String)
+                 * contactoTable.getValueAt(row[0], 0);
+                 * System.out.println("Table element selected es: " + ids); int id =
+                 * Integer.parseInt(ids); contactoTxtNombre.setText(" " + id);
+                 * contactoData.delete(id); List<Contacto> miLista = contactoData.list();
+                 * System.out.println("miListaes: " + miLista); /*
+                 * 
+                 * contactoMatriz = new String[miLista.size()][contactoColumns.length]; for (int
+                 * i = 0; i < miLista.size(); i++) { contactoMatriz[i][0] =
+                 * miLista.get(i).getId() + ""; contactoMatriz[i][1] =
+                 * miLista.get(i).getNombre() + ""; contactoMatriz[i][2] =
+                 * miLista.get(i).getId() + ""; } contactoTable = new JTable(contactoMatriz,
+                 * contactoColumns);
+                 */
+                /*
+                 * } });
+                 */
                 contactoSP.setViewportView(contactoTable);// f5 table
 
             }
         });
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                // check for selected row first
+                if (contactoTable.getSelectedRow() != -1) {
+                    String ids = null;
+                    int[] row = contactoTable.getSelectedRows();
+                    ids = (String) contactoTable.getValueAt(row[0], 0);
+                    System.out.println("Table element selected es: " + ids);
+                    int id = Integer.parseInt(ids);
+                    contactoTxtNombre.setText(" " + id);
+                    
+                    
+                    // remove selected row from the model
+                    model.removeRow(contactoTable.getSelectedRow());
+                    contactoData.delete(id);
+
+                   // JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
+                }
+            }
+        });
+
         // CRUD Contacto End
 
         // CRUD Producto
