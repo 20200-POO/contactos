@@ -117,7 +117,12 @@ public class Principal2 extends JFrame {
                     
                     // remove selected row from the model
                     model.removeRow(contactoTable.getSelectedRow());
-                    contactoData.delete(id);
+                    try {
+                        contactoData.delete(id);
+                    } catch (java.util.ConcurrentModificationException e2) {
+                        System.out.println("Contacto si exist e2="+e2);
+                    }
+                    
 
                    // JOptionPane.showMessageDialog(null, "Selected row deleted successfully");
                 }
